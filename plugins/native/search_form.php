@@ -90,7 +90,7 @@ class search_form extends moodleform {
         $mform->setType('submitter', PARAM_INT);
     }
 
-    function validation() {
+    function validation($data, $files) {
         // Add something at some point.
     }
 
