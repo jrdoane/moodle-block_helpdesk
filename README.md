@@ -36,5 +36,6 @@ Supported Moodle versions of the plugin branch
 
 **master**
 * 2.6+
+* 2.7+
 * master
 
