@@ -36,7 +36,7 @@ class search_form extends moodleform {
         // Return all that have rows, but not on the join itself.
         // We want to populate the answerers list with only users who have 
         $answerers = $DB->get_records_sql("
-            SELECT DISTINCT (u.*)
+            SELECT DISTINCT u.*
             FROM {user} AS u
             LEFT JOIN {block_helpdesk_ticket_assign} AS hta ON u.id = hta.userid
             WHERE hta.ticketid IS NOT NULL
