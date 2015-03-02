@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Update form. This handles updates to a ticket, not updating the ticket 
+ * Update form. This handles updates to a ticket, not updating the ticket
  * itself. Extends moodleform.
  *
  * @package     block_helpdesk
@@ -59,7 +59,7 @@ class update_ticket_form extends moodleform {
         if($cap == false) {
             print_error('Unable to get capability for statuses.');
         }
-        $sql = "SELECT s.*
+        $sql = "SELECT DISTINCT s.*
                 FROM {block_helpdesk_status} s
                     JOIN {block_helpdesk_status_path} sp ON sp.tostatusid=s.id
                 WHERE sp.fromstatusid = :statusid
