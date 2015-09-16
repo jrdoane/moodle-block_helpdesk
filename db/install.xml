@@ -18,6 +18,8 @@
         <FIELD NAME="groupid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="Group this ticket belongs to."/>
         <FIELD NAME="status" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="createdby" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="guestfullname" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the user if guest."/>
+        <FIELD NAME="guestemail" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Email of the user if guest."/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

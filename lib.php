@@ -119,6 +119,9 @@ function helpdesk_is_capable($capability=null, $require=false, $user=null) {
         }
         return false;
     }
+    if (($capability == HELPDESK_CAP_ASK) && isguestuser()) {
+        return true;
+    }
 
     if (is_numeric($user)) {
         $user = $DB->get_record('user', array('id' => $user));

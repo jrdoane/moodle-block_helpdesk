@@ -37,6 +37,8 @@ class helpdesk_ticket_native extends helpdesk_ticket {
     public $hd_userid;
     public $createdby;
     public $firstcontact;
+    public $guestfullname;
+    public $guestemail;
 
     // All child db tables that have a relation with this ticket object.
     public $tags;
@@ -117,10 +119,16 @@ class helpdesk_ticket_native extends helpdesk_ticket {
         $row[] = helpdesk_user_link($user);
         $table->data[] = $row;
 
-        $createdby = helpdesk_get_hd_user($this->createdby);
+
         $row = array();
         $row[] = get_string('submittedby', 'block_helpdesk');
-        $row[] = helpdesk_user_link($createdby);
+        if ($this->createdby == 1) {
+            $createdby = new stdclass();
+            $row[] = $this->guestfullname . '&nbsp;&lt;'. $this->guestemail.'&gt;';
+        } else {
+            $createdby = helpdesk_get_hd_user($this->createdby);
+            $row[] = helpdesk_user_link($createdby);
+        }
         $table->data[] = $row;
 
         if ($this->firstcontact != null and $showfirstcontact != false) {
@@ -982,6 +990,12 @@ class helpdesk_ticket_native extends helpdesk_ticket {
         if (!empty($this->id)) {
             $dataobject->id = $this->id;
         }
+        if (!empty($this->guestfullname)) {
+            $dataobject->guestfullname = $this->guestfullname;
+        }
+        if (!empty($this->guestemail)) {
+            $dataobject->guestemail = $this->guestemail;
+        }
 
         if (!empty($dataobject->id)) {
             if ($result = $DB->update_record('block_helpdesk_ticket', $dataobject)) {
@@ -1072,6 +1086,12 @@ class helpdesk_ticket_native extends helpdesk_ticket {
         } else {
             $this->createdby = $data->hd_userid;
         }
+        if (!empty($data->guestfullname)) {
+            $this->guestfullname = $data->guestfullname;
+        }
+        if (!empty($data->guestemail)) {
+            $this->guestemail = $data->guestemail;
+        }
         if (isset($data->timecreated)) {
             $this->timecreated  = $data->timecreated;
         } else {
@@ -1101,8 +1121,10 @@ class helpdesk_ticket_native extends helpdesk_ticket {
         $this->detail           = stripslashes($record->detail);
         $this->detailformat     = stripslashes($record->detailformat);
         $this->summary          = stripslashes($record->summary);
-        $this->hd_userid           = $record->hd_userid;
+        $this->hd_userid        = $record->hd_userid;
         $this->createdby        = $record->createdby;
+        $this->guestfullname    = $record->guestfullname;
+        $this->guestemail       = $record->guestemail;
         $this->timecreated      = $record->timecreated;
         $this->timemodified     = $record->timemodified;
         $this->status           = $record->status;

@@ -736,6 +736,27 @@ function xmldb_block_helpdesk_upgrade($oldversion = 0) {
 
         }
     }
+    if ($result && $oldversion < 2015091601) {
+        $table = new xmldb_table('block_helpdesk_ticket');
+        $field = new xmldb_field('guestfullname', XMLDB_TYPE_CHAR, '255', null, null, null, '0', 'createdby');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        $index = new xmldb_index('guestfullname', XMLDB_INDEX_NOTUNIQUE, array('guestfullname'));
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        $field = new xmldb_field('guestemail', XMLDB_TYPE_CHAR, '255', null, null, null, '0', 'guestfullname');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        $index = new xmldb_index('guestemail', XMLDB_INDEX_NOTUNIQUE, array('guestemail'));
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+    }
+
 
     return true;
 }

@@ -37,6 +37,14 @@ class new_ticket_form extends moodleform {
         $ticket = $this->_customdata['ticket'];
 
         $mform->addElement('header', 'frm', get_string('newticketform', 'block_helpdesk'));
+        if (isguestuser()) {
+            $mform->addElement('text', 'guestfullname', get_string('fullname'));
+            $mform->addRule('guestfullname', null, 'required', 'client');
+            $mform->setType('guestfullname', PARAM_TEXT);
+            $mform->addElement('text', 'guestemail', get_string('email', 'block_helpdesk'));
+            $mform->addRule('guestemail', null, 'required', 'client');
+            $mform->setType('guestemail', PARAM_EMAIL);
+        }
         $mform->addElement('text', 'summary', get_string('summary', 'block_helpdesk'));
         $mform->addRule('summary', null, 'required', 'server');
         $mform->setType('summary', PARAM_TEXT);
