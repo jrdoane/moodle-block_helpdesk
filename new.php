@@ -31,7 +31,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/lib/filelib.php');
 // We are the helpdesk, so we need the core library.
 require_once($CFG->dirroot . '/blocks/helpdesk/lib.php');
 
-require_login(0, false);
+require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url('/blocks/helpdesk/new.php');
@@ -45,8 +45,10 @@ $ticket = new stdClass();
 $ticket->detail = "";
 $ticket->detailformat = FORMAT_HTML;
 $editoroptions = array('maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes, 'context'=>$context);
-$ticket = file_prepare_standard_editor($ticket, 'detail', $editoroptions, $context,
-    'block_helpdesk', 'ticketdetail', 0);
+if (!isguestuser()) {
+    $ticket = file_prepare_standard_editor($ticket, 'detail', $editoroptions, $context,
+        'block_helpdesk', 'ticketdetail', 0);
+}
 
 $toform = array();
 // We may have some special tags included in GET.
