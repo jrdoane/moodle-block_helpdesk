@@ -1,0 +1,10 @@
+{
+    "name": "vlacs/moodle-block_helpdesk",
+    "type": "moodle-block",
+    "description": "Moodle plugin to gamify students' learning experience.",
+    "homepage": "https://github.com/vlacs/moodle-block_helpdesk",
+    "license": "GPLv3",
+    "extra": {
+        "installer-name": "helpdesk"
+    }
+}
